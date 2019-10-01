@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 import com.iu.util.DBConnector;
 
@@ -56,14 +57,15 @@ public class EmpDAO {
 		}
 		return empDTO;
 	}//getSelectOne
-	public EmpDTO getSelectList() {
+	
+	public ArrayList<EmpDTO> getSelectList() {
 	//전체 사원 정보 - 최신 입사일 순 정렬
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
 		
 		EmpDTO empDTO = null;
-		
+		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
 		try {
 			con = DBConnector.getConnect();
 			String sql = "SELECT empno, ename, job, mgr, "
@@ -84,6 +86,9 @@ public class EmpDAO {
 				empDTO.setSal(rs.getInt("sal"));
 				empDTO.setComm(rs.getInt("comm"));
 				empDTO.setDeptno(rs.getInt("deptno"));
+				
+				ar.add(empDTO);
+				
 			}
 			
 			
@@ -100,6 +105,6 @@ public class EmpDAO {
 				e.printStackTrace();
 			}
 		}
-		return empDTO;
+		return ar;
 	}
 }
