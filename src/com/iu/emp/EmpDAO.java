@@ -9,26 +9,66 @@ import java.util.ArrayList;
 import com.iu.util.DBConnector;
 
 public class EmpDAO {
+
+	public int empInsert(EmpDTO empDTO) {
+		Connection con = null;
+		PreparedStatement st = null;
+		int result = 0;
+		try {
+			con = DBConnector.getConnect();
+			String sql = "INSERT INTO emp (empno, ename, job, mgr, "
+					+ "hiredate, sal, comm, deptno) "
+					+ "VALUES(?, ?, ? ,? ,sysdate ,?, ?, ?)";
+
+			st = con.prepareStatement(sql);
+
+			st.setInt(1, empDTO.getEmpno());
+			st.setString(2, empDTO.getEname());
+			st.setString(3, empDTO.getJob());
+			st.setInt(4, empDTO.getMgr());
+//			st.setDate(5, empDTO.getHiredate());
+			st.setInt(5, empDTO.getSal());
+			st.setInt(6, empDTO.getComm());
+			st.setInt(7, empDTO.getDeptno());
+
+			result = st.executeUpdate();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				st.close();
+				con.close();
+
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+
 	//getSelectOne, 매개변수 사원번호
 	public EmpDTO getSelectOne(int empno) {
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		
+
 		EmpDTO empDTO = null;
-		
+
 		try {
 			con = DBConnector.getConnect();
-			
+
 			String sql = "SELECT empno, ename, job, mgr, "
 					+ "hiredate, sal, NVL(comm, 0) comm, deptno FROM emp "
 					+ "WHERE empno = ?";
-			
+
 			st = con.prepareStatement(sql);
 			st.setInt(1, empno);
-			
+
 			rs = st.executeQuery();
-			
+
 			if (rs.next()) {
 				empDTO = new EmpDTO();
 				empDTO.setEmpno(rs.getInt("empno"));
@@ -40,8 +80,8 @@ public class EmpDAO {
 				empDTO.setComm(rs.getInt("comm"));
 				empDTO.setDeptno(rs.getInt("deptno"));
 			}
-			
-			
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -57,13 +97,13 @@ public class EmpDAO {
 		}
 		return empDTO;
 	}//getSelectOne
-	
+
 	public ArrayList<EmpDTO> getSelectList() {
-	//전체 사원 정보 - 최신 입사일 순 정렬
+		//전체 사원 정보 - 최신 입사일 순 정렬
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
-		
+
 		EmpDTO empDTO = null;
 		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
 		try {
@@ -71,11 +111,11 @@ public class EmpDAO {
 			String sql = "SELECT empno, ename, job, mgr, "
 					+ "hiredate, sal, NVL(comm, 0) comm, deptno FROM emp "
 					+ "ORDER BY hiredate DESC";
-			
+
 			st = con.prepareStatement(sql);
-			
+
 			rs = st.executeQuery();
-			
+
 			while (rs.next()) {
 				empDTO = new EmpDTO();
 				empDTO.setEmpno(rs.getInt("empno"));
@@ -86,12 +126,12 @@ public class EmpDAO {
 				empDTO.setSal(rs.getInt("sal"));
 				empDTO.setComm(rs.getInt("comm"));
 				empDTO.setDeptno(rs.getInt("deptno"));
-				
+
 				ar.add(empDTO);
-				
+
 			}
-			
-			
+
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

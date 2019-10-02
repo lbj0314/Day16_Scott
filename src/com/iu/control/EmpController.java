@@ -14,47 +14,70 @@ public class EmpController {
 	//2. 사원검색출력
 	//3. 종료
 	private Scanner sc;
+	private EmpDAO empDAO;
+	private EmpView empView;
+	private EmpInput empInput;
+	private EmpDTO empDTO;
+
 	public EmpController(){
 		sc = new Scanner(System.in);
+		empDAO = new EmpDAO();
+		empView = new EmpView();
+		empInput = new EmpInput();
+		empDTO = new EmpDTO();
 	}
-	
+
 	public void start() {
-		EmpDAO empDAO = new EmpDAO();
-		EmpDTO empDTO = new EmpDTO();
-		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
-		EmpInput ei = new EmpInput();
-		EmpView ev = new EmpView();
+
 		boolean check = true;
-		
+		int select = 0;
 		while (check) {
 			System.out.println("1. 사원 전체 정보 출력");
 			System.out.println("2. 사원 검색 출력");
+			System.out.println("3. 사원 정보 추가");
 			System.out.println("3. 종료");
-			int select = sc.nextInt();
+			select = sc.nextInt();
 			switch (select) {
 			case 1:
-//				if (ar != null) {
-//					ev.view(ar);
-//				} else {
-//					ev.view("");
-//				}
-				ev.view(ar);
+				ArrayList<EmpDTO> ar = empDAO.getSelectList();
+				if (ar.size() > 0) {
+					empView.view(ar);
+				} else {
+					empView.view("데이터가 존재하지 않습니다.");
+				}
+//				empView.view(ar);
 				break;
 			case 2:
-				ei.empnoInput();
+				select = empInput.empnoInput();
+				empDTO = empDAO.getSelectOne(select);
+				if(empDTO != null) {
+					empView.view(empDTO);
+				} else {
+					empView.view("없는 사원의 번호입니다.");
+				}
 				break;
 			case 3:
+				empDTO = empInput.insert();
+				select = empDAO.empInsert(empDTO);
+				String s = "입력 실패";
+				if (select > 0) {
+					s = "입력 성공";
+				} else {
+					empView.view(s);
+				}
+				
+
+			default:
 				check = !check;
-				break;
-			
+
 			}
-			
+
 		}
-		
-		
-		
+
+
+
 	}
-	
-	
-	
+
+
+
 }

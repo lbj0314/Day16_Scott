@@ -40,8 +40,8 @@ public class EmpDTO {
 	public Date getHiredate() {
 		return hiredate;
 	}
-	public void setHiredate(Date hiredate) {
-		this.hiredate = hiredate;
+	public void setHiredate(Date date) {
+		this.hiredate = date;
 	}
 	public int getSal() {
 		return sal;
