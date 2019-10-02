@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import com.iu.util.DBConnector;
 
 public class SalgradeDAO {
-	//내가
+
 	//전체등급조회
 	public ArrayList<SalgradeDTO> getselectList() {
 		Connection con = null;
@@ -20,7 +20,7 @@ public class SalgradeDAO {
 
 		try {
 			con = DBConnector.getConnect();
-			String sql = "select * from salgrade";
+			String sql = "SELECT * FROM salgrade";
 
 			st = con.prepareStatement(sql);
 
@@ -28,11 +28,11 @@ public class SalgradeDAO {
 
 			while(rs.next()) {
 
-				SalgradeDTO salDTO = new SalgradeDTO();
-				salDTO.setGrade(rs.getInt(1));
-				salDTO.setLosal(rs.getInt(2));
-				salDTO.setHisal(rs.getInt(3));
-				ar.add(salDTO);
+				SalgradeDTO salgradeDTO = new SalgradeDTO();
+				salgradeDTO.setGrade(rs.getInt(1));
+				salgradeDTO.setLosal(rs.getInt(2));
+				salgradeDTO.setHisal(rs.getInt(3));
+				ar.add(salgradeDTO);
 
 			}
 		} catch (Exception e) {

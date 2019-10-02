@@ -56,7 +56,7 @@ public class BonusDAO {
 	}
 
 	//전체 bonus 정보
-	public List<BonusDTO> bonusSelectList(){
+	public ArrayList<BonusDTO> bonusSelectList(){
 		Connection con = null;
 		PreparedStatement st = null;
 		ResultSet rs = null;
@@ -99,11 +99,10 @@ public class BonusDAO {
 	}//bonusSelectList
 
 	//bonus 값 추가
-	public int bonusInsert() {
+	public int bonusInsert(BonusDTO bonusDTO) {
 		Connection con = null;
 		PreparedStatement st = null;
 		
-		BonusDTO bonusDTO = new BonusDTO();
 		int result = 0;
 		try {
 			con = DBConnector.getConnect();
@@ -147,7 +146,7 @@ public class BonusDAO {
 			con = DBConnector.getConnect();
 
 			String sql = "DELETE FROM bonus "
-					+ "WHERE dname = ?";
+					+ "WHERE ename = ?";
 
 			st = con.prepareStatement(sql);
 			st.setString(1, ename);

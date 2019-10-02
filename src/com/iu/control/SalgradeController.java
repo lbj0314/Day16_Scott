@@ -63,7 +63,7 @@ public class SalgradeController {
 				select = salgradeInut.gradeInput();
 				int result = salgradeDAO.salgradeDelete(select);
 				s = "등급 정보 삭제에 실패하였습니다.";
-				if (select > 0) {
+				if (result > 0) {
 					s = "등급 정보 삭제에 성공하였습니다.";
 				}
 				salgradeView.view(s);

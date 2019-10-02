@@ -36,18 +36,18 @@ public class BonusController {
 			select = sc.nextInt();
 			switch (select) {
 			case 1:
-				List<BonusDTO> ar = bonusDAO.bonusSelectList();
+				ArrayList<BonusDTO> ar = bonusDAO.bonusSelectList();
 				if (ar.size() > 0) {
 					bonusView.view(ar);
 				}
 				break;
 			case 2:
-				select = bonusInput.enameInput();
-				bonusDTO = bonusDAO.bonusSelectOne(select);
+				String str = bonusInput.bonusInput();
+				bonusDTO = bonusDAO.bonusSelectOne(str);
 				if (bonusDTO != null) {
 					bonusView.view(bonusDTO);
 				} else {
-					bonusVIew.view("없는 사원의 이름입니다.");
+					bonusView.view("없는 사원의 이름입니다.");
 				}
 				break;
 			case 3:
@@ -60,8 +60,8 @@ public class BonusController {
 				bonusView.view(s);
 				break;
 			case 4:
-				select = bonusInput.enameInput();
-				int result = bonusDAO.bonusDelete(select);
+				str = bonusInput.bonusInput();
+				int result = bonusDAO.bonusDelete(str);
 				s = "보너스 받을 사원 정보 삭제에 실패했습니다.";
 				if (result > 0) {
 					s = "보너스 받을 사원 정보 삭제에 성공했습니다.";
