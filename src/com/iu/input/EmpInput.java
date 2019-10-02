@@ -11,6 +11,15 @@ public class EmpInput {
 	public EmpInput(){
 		sc = new Scanner(System.in);
 	}
+	//delete
+	public int delete() {
+		int empno = 0;
+		System.out.println("사원 번호를 입력하세요.");
+		empno = sc.nextInt();
+		return empno;
+		
+	}
+	
 	//insert
 	public EmpDTO insert() {
 		EmpDTO empDTO = new EmpDTO();

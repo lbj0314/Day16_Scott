@@ -42,7 +42,7 @@ public class DeptController {
 				} else {
 					deptView.view("데이터가 존재하지 않습니다.");
 				}
-				deptView.view(ar);
+//				deptView.view(ar);
 				break;
 			case 2:
 				select = deptInput.deptInfo();
