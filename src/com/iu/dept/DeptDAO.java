@@ -11,6 +11,33 @@ import com.iu.util.DBConnector;
 
 public class DeptDAO {
 	
+	//부서 정보 삭제
+	public int delete(int deptno) {
+		Connection con = null;
+		PreparedStatement st = null;
+		int result = 0;
+		
+		try {
+			con=DBConnector.getConnect();
+			String sql = "DELETE dept WHERE deptno = ?";
+			st=con.prepareStatement(sql);
+			
+			st.setInt(1, deptno);
+			
+			result = st.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+		return result;
+	}
+	
 	//정보 삽입
 	public int deptInsert(DeptDTO deptDTO) {
 		

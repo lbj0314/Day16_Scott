@@ -136,7 +136,7 @@ public class EmpDAO {
 			con = DBConnector.getConnect();
 			String sql = "SELECT empno, ename, job, mgr, "
 					+ "hiredate, sal, NVL(comm, 0) comm, deptno FROM emp "
-					+ "ORDER BY hiredate DESC";
+					+ "ORDER BY empno ASC";
 
 			st = con.prepareStatement(sql);
 
@@ -171,6 +171,57 @@ public class EmpDAO {
 				e.printStackTrace();
 			}
 		}
+		return ar;
+	}
+	
+	public ArrayList<EmpDTO> enameSelect(String ename) {
+		Connection con = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		EmpDTO empDTO = null;
+		ArrayList<EmpDTO> ar = new ArrayList<EmpDTO>();
+		try {
+			con = DBConnector.getConnect();
+			
+			String sql = "SELECT * FROM emp "
+					+ "WHERE ename LIKE ?";
+//			'%?%'
+			st = con.prepareStatement(sql);
+			st.setString(1, "%"+ename+"%");
+			
+			rs = st.executeQuery();
+			
+			while (rs.next()) {
+				empDTO = new EmpDTO();
+				empDTO.setEmpno(rs.getInt("empno"));
+				empDTO.setEname(rs.getString("ename"));
+				empDTO.setJob(rs.getString("job"));
+				empDTO.setMgr(rs.getInt("mgr"));
+				empDTO.setHiredate(rs.getDate("hiredate"));
+				empDTO.setSal(rs.getInt("sal"));
+				empDTO.setComm(rs.getInt("comm"));
+				empDTO.setDeptno(rs.getInt("deptno"));
+				
+				ar.add(empDTO);
+				
+			}
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} finally {
+			try {
+				rs.close();
+				st.close();
+				con.close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
 		return ar;
 	}
 }

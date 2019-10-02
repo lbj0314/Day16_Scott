@@ -36,7 +36,8 @@ public class EmpController {
 			System.out.println("2. 사원 검색");
 			System.out.println("3. 사원 정보 추가");
 			System.out.println("4. 사원 정보 삭제");
-			System.out.println("5. 종료");
+			System.out.println("5. 특정 알파벳이 들어가는 사원 이름 검색");
+			System.out.println("6. 종료");
 			select = sc.nextInt();
 			switch (select) {
 			case 1:
@@ -46,7 +47,7 @@ public class EmpController {
 				} else {
 					empView.view("데이터가 존재하지 않습니다.");
 				}
-//				empView.view(ar);
+				//				empView.view(ar);
 				break;
 			case 2:
 				select = empInput.empnoInput();
@@ -64,7 +65,8 @@ public class EmpController {
 				if (select > 0) {
 					s = "사원 정보 입력을 성공하였습니다.";
 				} 
-					empView.view(s);
+				empView.view(s);
+				break;
 			case 4:	
 				select = empInput.empnoInput();
 				int result = empDAO.delete(select);
@@ -73,6 +75,12 @@ public class EmpController {
 					s="사원 정보 삭제에 성공하였습니다.";
 				}
 				empView.view(s);
+				break;
+			case 5:
+//				ArrayList<empDTO> ar = empDAO.enameSelect();
+//				String str = empInput.enameInput();
+//				empDTO = empDAO.enameSelect(str);
+				
 				break;
 			default:
 				check = !check;

@@ -62,5 +62,10 @@ public class EmpInput {
 		return empno;
 		
 	}
+	public String enameInput() {
+		System.out.println("검색할 사원의 알파벳을 입력하세요.");
+		String ename = sc.next();
+		return ename;
+	}
 	
 }

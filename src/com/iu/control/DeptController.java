@@ -31,7 +31,8 @@ public class DeptController {
 			System.out.println("1. 부서 전체 정보 출력");
 			System.out.println("2. 부서 검색 출력");
 			System.out.println("3. 부서 정보 추가");
-			System.out.println("4. 종료");
+			System.out.println("4. 부서 정보 삭제");
+			System.out.println("5. 종료");
 
 			select = sc.nextInt();
 			switch (select) {
@@ -62,6 +63,14 @@ public class DeptController {
 				} 
 				deptView.view(s);
 				break;
+			case 4:
+				select = deptInput.deptInfo();
+				int result = deptDAO.delete(select);
+				s = "부서 정보 삭제에 실패하였습니다.";
+				if(result > 0) {
+					s = "부서 정보 삭제에 성공하였습니다.";
+				}
+				deptView.view(s);
 			default:
 				check = !check;
 			}
