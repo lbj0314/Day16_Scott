@@ -5,6 +5,7 @@ public class SalgradeDTO {
 	private int grade;
 	private int losal;
 	private int hisal;
+	
 	public int getGrade() {
 		return grade;
 	}

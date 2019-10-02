@@ -102,7 +102,7 @@ public class BonusDAO {
 	public int bonusInsert() {
 		Connection con = null;
 		PreparedStatement st = null;
-		ResultSet rs = null;
+		
 		BonusDTO bonusDTO = new BonusDTO();
 		int result = 0;
 		try {
