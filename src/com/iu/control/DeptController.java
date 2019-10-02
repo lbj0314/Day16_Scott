@@ -56,10 +56,10 @@ public class DeptController {
 			case 3:
 				deptDTO = deptInput.insert();
 				select = deptDAO.deptInsert(deptDTO);
-				String s = "입력 실패";
+				String s = "부서 정보 입력을 실패하였습니다.";
 				if (select > 0) {
-					s = "입력 성공";
-				}
+					s = "부서 정보 입력을 성공하였습니다.";
+				} 
 				deptView.view(s);
 				break;
 			default:

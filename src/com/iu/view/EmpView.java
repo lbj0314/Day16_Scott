@@ -24,7 +24,7 @@ public class EmpView {
 		
 	}//view
 	public void view(String str) {
-		System.out.println("없는 사원입니다.");
+		System.out.println(str);
 		
 	}
 }

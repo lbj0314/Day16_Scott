@@ -20,7 +20,7 @@ public class DeptView {
 		System.out.println("Dname : " + deptDTO.getDname());
 		System.out.println("Loc : " + deptDTO.getLoc());
 	}
-	//에러처리
+	//메시지 처리
 	public void view(String str) {
 		System.out.println(str);
 	}
